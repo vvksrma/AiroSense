@@ -1,0 +1,229 @@
+/* ---------- Base Styles ---------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f5f7fa;
+  color: #222;
+  min-height: 100vh;
+}
+
+a {
+  color: #1976d2;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover,
+a:focus {
+  color: #003366;
+}
+
+/* ---------- Header ---------- */
+header {
+  background: linear-gradient(90deg, #093159 0%, #000000 100%);
+  color: #fff;
+  padding: 2.5rem 1rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+header .logo {
+  width: 300px;
+  height: 170px;
+  margin-bottom: 1rem;
+
+}
+
+header h1 {
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  margin: 0 0 0.4rem 0;
+  font-weight: 800;
+}
+
+header .subtitle,
+header p {
+  font-size: 1.2rem;
+  margin: 0 0 1.5rem 0;
+  font-weight: 400;
+  opacity: 0.96;
+}
+
+.btn {
+  display: inline-block;
+  background: #21cbf3;
+  color: #003366;
+  font-weight: 600;
+  padding: 0.85em 2.2em;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-top: 1rem;
+  text-align: center;
+}
+.btn:hover,
+.btn:focus {
+  background: #1976d2;
+  color: #fff;
+  box-shadow: 0 3px 16px rgba(30, 64, 175, 0.18);
+}
+.main-cta {
+  background: #fff;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+  margin-top: 1.2rem;
+}
+.main-cta:hover,
+.main-cta:focus {
+  background: #003366;
+  color: #fff;
+  border-color: #003366;
+}
+.secondary-cta {
+  margin-top: 2rem;
+}
+
+/* ---------- Features Section ---------- */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2.5rem 0 0 0;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(33, 203, 243, 0.10);
+  padding: 2rem 1.5rem;
+  flex: 1 1 260px;
+  min-width: 240px;
+  max-width: 320px;
+  text-align: center;
+  transition: transform 0.14s, box-shadow 0.14s;
+}
+.feature-card:hover {
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 8px 32px rgba(33, 203, 243, 0.17);
+}
+.feature-card h2 {
+  color: #1976d2;
+  font-size: 1.25rem;
+  margin-bottom: 0.7rem;
+  font-weight: 700;
+}
+.feature-card p {
+  margin: 0;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+/* ---------- About Section ---------- */
+.about {
+  background: #e3f2fd;
+  border-radius: 18px;
+  margin: 3.5rem 0 2rem 0;
+  padding: 2rem 2rem 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(33, 203, 243, 0.06);
+}
+
+.about h2 {
+  color: #1976d2;
+  margin-bottom: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.about ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 1.5rem auto;
+  max-width: 480px;
+  text-align: left;
+}
+.about ul li {
+  background: url("data:image/svg+xml,%3Csvg fill='none' viewBox='0 0 16 16' height='16' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%231976d2' cx='8' cy='8' r='6'/%3E%3C/svg%3E") left center no-repeat;
+  padding-left: 2em;
+  margin-bottom: 0.8em;
+  color: #234;
+  font-size: 1rem;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 4rem;
+  background: #e3f2fd;
+  color: #222;
+  text-align: center;
+  padding: 2rem 1rem 1rem 1rem;
+  border-top: 1px solid #d1e3f8;
+  font-size: 1rem;
+}
+footer nav {
+  margin-bottom: 0.7rem;
+}
+footer nav a {
+  color: #1976d2;
+  margin: 0 0.8rem;
+  font-size: 1rem;
+  opacity: 0.85;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+footer nav a:hover,
+footer nav a:focus {
+  opacity: 1;
+  text-decoration: underline;
+}
+footer p {
+  margin: 0.6rem 0 0 0;
+  opacity: 0.92;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 850px) {
+  .features {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+  .feature-card {
+    max-width: none;
+  }
+  main {
+    padding: 0 0.5rem;
+  }
+  .about {
+    padding: 1.3rem 0.7rem 2rem 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  .feature-card {
+    padding: 1.2rem 0.7rem;
+  }
+  .about ul {
+    max-width: 100%;
+    font-size: 0.98rem;
+  }
+  .btn {
+    font-size: 0.98rem;
+    padding: 0.65em 1.3em;
+  }
+}

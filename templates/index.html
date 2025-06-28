@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AiroSense | Real-time Air Quality Monitoring</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo.png') }}" />
+  <meta name="description" content="AiroSense provides real-time and predictive air quality data across India using satellite and ground sensors. Interactive heatmaps, AI-powered forecasts, and more."/>
+</head>
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="AiroSense Logo" class="logo"/>
+    <div>
+      <!-- <h1>AiroSense</h1> -->
+      <p class="subtitle">Satellite & Ground Monitoring of Air Pollution Across India</p>
+    </div>
+    <a href="/dashboard" class="btn main-cta">View Live Dashboard</a>
+  </header>
+
+  <main>
+    <section class="features">
+      <div class="feature-card">
+        <h2>Live Air Quality</h2>
+        <p>Get up-to-the-minute data on key pollutants: <strong>PM2.5, NO₂, SO₂, O₃</strong> and more, from hundreds of Indian cities.</p>
+      </div>
+      <div class="feature-card">
+        <h2>AI-powered Predictions</h2>
+        <p>See tomorrow’s forecast with our advanced AI/ML models—plan ahead for safer air quality.</p>
+      </div>
+      <div class="feature-card">
+        <h2>Pollution Heatmaps</h2>
+        <p>Explore intuitive, interactive maps visualizing pollution trends and hotspots across India.</p>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>Why AiroSense?</h2>
+      <ul>
+        <li>Combines satellite data with ground sensors for accuracy</li>
+        <li>Real-time dashboards and alerts for your city</li>
+        <li>AI-driven insights and actionable forecasts</li>
+        <li>Open access for everyone—individuals, communities, researchers</li>
+      </ul>
+      <a href="/dashboard" class="btn secondary-cta">Check Your City’s Air Quality</a>
+    </section>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="/about">About</a> |
+      <a href="/faq">FAQ</a> |
+      <a href="/contact">Contact</a>
+    </nav>
+    <p>© 2025 AiroSense. All rights reserved.</p>
+  </footer>
+</body>
+</html>

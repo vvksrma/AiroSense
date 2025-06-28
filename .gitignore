@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Environment variables
+.env
+
+# VS Code or PyCharm settings
+.vscode/
+.idea/
+
+# Bytecode and log files
+*.log
+*.sqlite3
+
+# Flask instance folder
+instance/
