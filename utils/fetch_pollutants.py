@@ -1,8 +1,10 @@
 import ee
 import os
+import requests
+from datetime import datetime, timezone
 import pandas as pd
 
-# Global Assest
+# Authenticate and initialize Earth Engine
 ee.Authenticate()
 ee.Initialize(project='airosense')
 
@@ -48,25 +50,26 @@ STATES = {
     "West Bengal": (22.9868, 87.855)
 }
 
-# Save to CSV
+# column_name.lower() used before saving
 def save_to_csv(state, folder, column_name, mean_val):
     os.makedirs(f"data/raw/{folder}", exist_ok=True)
+    column_name = column_name.lower()  # ✅ lowercase fix
     df = pd.DataFrame([{
         "state": state,
-        "date_range": f"{START_DATE} to {END_DATE}",
+        "satellite_window": f"{START_DATE} to {END_DATE}",
         column_name: mean_val
     }])
     filename = state.lower().replace(" ", "_") + f"_{folder}.csv"
     df.to_csv(f"data/raw/{folder}/{filename}", index=False)
     print(f"✅ {state} {folder.upper()} data saved.")
 
-# Fetch NO₂ from Sentinel-5P
-def fetch_no2():
+
+def fetch_pollutant(dataset_id, band_name, folder_name, column_name):
     for state, (lat, lon) in STATES.items():
         try:
             point = ee.Geometry.Point(lon, lat)
-            collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_NO2") \
-                .select("NO2_column_number_density") \
+            collection = ee.ImageCollection(dataset_id) \
+                .select(band_name) \
                 .filterDate(START_DATE, END_DATE) \
                 .filterBounds(point)
 
@@ -74,109 +77,129 @@ def fetch_no2():
                 reducer=ee.Reducer.mean(),
                 geometry=point.buffer(10000),
                 scale=1000
-            ).get("NO2_column_number_density").getInfo()
+            ).get(band_name).getInfo()
 
-            save_to_csv(state, folder="no2", column_name="mean_NO2", mean_val=mean_val)
+            save_to_csv(state, folder_name, column_name, mean_val)
 
         except Exception as e:
-            print(f"❌ Error for {state}: {e}")
+            print(f"❌ Error for {state} - {folder_name}: {e}")
 
-# Fetch O3 from Sentinel-5P
-def fetch_o3():
-    for state, (lat, lon) in STATES.items():
+
+def fetch_ground_monitored_pollutants(state_city_map, save_folder="ground_monitored_data"):
+    os.makedirs(f"data/raw/{save_folder}", exist_ok=True)
+    for state, (lat, lon) in state_city_map.items():
+        url = "https://air-quality-api.open-meteo.com/v1/air-quality"
+        params = {
+            "latitude": lat,
+            "longitude": lon,
+            "hourly": ["pm2_5", "pm10"]
+        }
         try:
-            point = ee.Geometry.Point(lon, lat)
-            collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_O3") \
-                .select("O3_column_number_density") \
-                .filterDate(START_DATE, END_DATE) \
-                .filterBounds(point)
+            res = requests.get(url, params=params, timeout=10)
+            res.raise_for_status()
+            data = res.json()
 
-            mean_val = collection.mean().reduceRegion(
-                reducer=ee.Reducer.mean(),
-                geometry=point.buffer(10000),
-                scale=1000
-            ).get("O3_column_number_density").getInfo()
+            if "hourly" not in data:
+                print(f"No hourly data for {state} → {data}")
+                continue
 
-            save_to_csv(state, folder="o3", column_name="mean_O3", mean_val=mean_val)
+            hourly = data["hourly"]
+            record = {"state": state}
+            for param in ["pm2_5", "pm10"]:
+                arr = hourly.get(param, [])
+                record[param] = arr[-1] if arr else None
+            record["ground_timestamp"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
+            df = pd.DataFrame([record])
+            fn = state.lower().replace(" ", "_") + f"_{save_folder}.csv"
+            df.to_csv(f"data/raw/{save_folder}/{fn}", index=False)
+            print(f"✅ Saved for {state}: {record}")
         except Exception as e:
-            print(f"❌ Error for {state}: {e}")
+            print(f"❌ Error fetching ground data for {state}: {e}")
 
-
-# Fetch so2 from Sentinel-5P
-def fetch_so2():
-    for state, (lat, lon) in STATES.items():
-        try:
-            point = ee.Geometry.Point(lon, lat)
-            collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_SO2") \
-                .select("SO2_column_number_density") \
-                .filterDate(START_DATE, END_DATE) \
-                .filterBounds(point)
-
-            mean_val = collection.mean().reduceRegion(
-                reducer=ee.Reducer.mean(),
-                geometry=point.buffer(10000),
-                scale=1000
-            ).get("SO2_column_number_density").getInfo()
-
-            save_to_csv(state, folder="so2", column_name="mean_so2", mean_val=mean_val)
-
-        except Exception as e:
-            print(f"❌ Error for {state}: {e}")
-
-
-# Fetch CO from Sentinel-5P
-def fetch_co():
-    for state, (lat, lon) in STATES.items():
-        try:
-            point = ee.Geometry.Point(lon, lat)
-            collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_CO") \
-                .select("CO_column_number_density") \
-                .filterDate(START_DATE, END_DATE) \
-                .filterBounds(point)
-
-            mean_val = collection.mean().reduceRegion(
-                reducer=ee.Reducer.mean(),
-                geometry=point.buffer(10000),
-                scale=1000
-            ).get("CO_column_number_density").getInfo()
-
-            save_to_csv(state, folder="co", column_name="mean_co", mean_val=mean_val)
-
-        except Exception as e:
-            print(f"❌ Error for {state}: {e}")
 
 def merge_all_pollutant_data():
     pollutants = ['no2', 'so2', 'co', 'o3']
-    folder = 'data/raw'
+    satellite_folder = 'data/raw'
+    ground_folder = 'data/raw/ground_monitored_data'
     merged_df = None
 
     for pol in pollutants:
-        path = os.path.join(folder, pol)
-        files = os.listdir(path)
+        pol_path = os.path.join(satellite_folder, pol)
+        if not os.path.exists(pol_path):
+            print(f"❌ Folder not found: {pol_path}")
+            continue
+
+        files = os.listdir(pol_path)
         all_states = []
 
         for file in files:
-            df = pd.read_csv(os.path.join(path, file))
-            all_states.append(df)
+            df = pd.read_csv(os.path.join(pol_path, file))
+            df.columns = [col.lower() for col in df.columns]
 
-        pol_df = pd.concat(all_states)
-        # Prevent duplicate column names
-        val_col = [col for col in pol_df.columns if col.startswith('mean_')][0]
+            expected_col = f"mean_{pol}"
+            required_cols = {'state', 'satellite_window', expected_col}
+            if not required_cols.issubset(df.columns):
+                print(f"⚠️ Skipping {file} due to missing columns: {required_cols - set(df.columns)}")
+                continue
+
+            all_states.append(df[['state', 'satellite_window', expected_col]])
+
+        if not all_states:
+            print(f"⚠️ No valid files found for {pol}")
+            continue
+
+        pol_df = pd.concat(all_states, ignore_index=True)
 
         if merged_df is None:
             merged_df = pol_df
         else:
-            merged_df = pd.merge(merged_df, pol_df, on=["state", "date_range"], how="outer")
+            merged_df = pd.merge(merged_df, pol_df, on=['state', 'satellite_window'], how='outer')
+
+    if merged_df is None:
+        print("❌ No satellite data found to merge.")
+        return
+
+    ground_files = os.listdir(ground_folder)
+    ground_all = []
+
+    for file in ground_files:
+        df = pd.read_csv(os.path.join(ground_folder, file))
+        df.columns = [col.lower() for col in df.columns]
+
+        required = {'state', 'pm2_5', 'pm10', 'ground_timestamp'}
+        if not required.issubset(df.columns):
+            print(f"⚠️ Skipping {file} due to missing columns: {required - set(df.columns)}")
+            continue
+
+        ground_all.append(df[['state', 'pm2_5', 'pm10', 'ground_timestamp']])
+
+    if not ground_all:
+        print("❌ No ground data to merge.")
+        return
+
+    ground_df = pd.concat(ground_all, ignore_index=True)
+    final_df = pd.merge(merged_df, ground_df, on='state', how='outer')
+
+    final_cols = [
+        'state', 'pm2_5', 'pm10', 'ground_timestamp',
+        'mean_no2', 'mean_co', 'mean_so2', 'mean_o3', 'satellite_window'
+    ]
+    for col in final_cols:
+        if col not in final_df.columns:
+            final_df[col] = None
+
+    final_df = final_df[final_cols]
 
     os.makedirs('data/processed', exist_ok=True)
-    merged_df.to_csv('data/processed/combined_pollution_data.csv', index=False)
-    print("✅ Combined dataset saved.")
+    final_df.to_csv('data/processed/combined_pollution_data.csv', index=False)
+    print("✅ Combined dataset saved to data/processed/combined_pollution_data.csv")
 
 
 if __name__ == "__main__":
-    fetch_so2()
-    fetch_co()
-    fetch_no2()
-    fetch_o3()
+    fetch_pollutant("COPERNICUS/S5P/OFFL/L3_NO2", "NO2_column_number_density", "no2", "mean_NO2")
+    fetch_pollutant("COPERNICUS/S5P/OFFL/L3_SO2", "SO2_column_number_density", "so2", "mean_SO2")
+    fetch_pollutant("COPERNICUS/S5P/OFFL/L3_CO", "CO_column_number_density", "co", "mean_CO")
+    fetch_pollutant("COPERNICUS/S5P/OFFL/L3_O3", "O3_column_number_density", "o3", "mean_O3")
+    fetch_ground_monitored_pollutants(STATES)
     merge_all_pollutant_data()

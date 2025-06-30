@@ -1,0 +1,85 @@
+# # Fetch NO₂ from Sentinel-5P
+# def fetch_no2():
+#     for state, (lat, lon) in STATES.items():
+#         try:
+#             point = ee.Geometry.Point(lon, lat)
+#             collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_NO2") \
+#                 .select("NO2_column_number_density") \
+#                 .filterDate(START_DATE, END_DATE) \
+#                 .filterBounds(point)
+
+#             mean_val = collection.mean().reduceRegion(
+#                 reducer=ee.Reducer.mean(),
+#                 geometry=point.buffer(10000),
+#                 scale=1000
+#             ).get("NO2_column_number_density").getInfo()
+
+#             save_to_csv(state, folder="no2", column_name="mean_NO2", mean_val=mean_val)
+
+#         except Exception as e:
+#             print(f"❌ Error for {state}: {e}")
+
+# # Fetch O3 from Sentinel-5P
+# def fetch_o3():
+#     for state, (lat, lon) in STATES.items():
+#         try:
+#             point = ee.Geometry.Point(lon, lat)
+#             collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_O3") \
+#                 .select("O3_column_number_density") \
+#                 .filterDate(START_DATE, END_DATE) \
+#                 .filterBounds(point)
+
+#             mean_val = collection.mean().reduceRegion(
+#                 reducer=ee.Reducer.mean(),
+#                 geometry=point.buffer(10000),
+#                 scale=1000
+#             ).get("O3_column_number_density").getInfo()
+
+#             save_to_csv(state, folder="o3", column_name="mean_O3", mean_val=mean_val)
+
+#         except Exception as e:
+#             print(f"❌ Error for {state}: {e}")
+
+
+# # Fetch so2 from Sentinel-5P
+# def fetch_so2():
+#     for state, (lat, lon) in STATES.items():
+#         try:
+#             point = ee.Geometry.Point(lon, lat)
+#             collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_SO2") \
+#                 .select("SO2_column_number_density") \
+#                 .filterDate(START_DATE, END_DATE) \
+#                 .filterBounds(point)
+
+#             mean_val = collection.mean().reduceRegion(
+#                 reducer=ee.Reducer.mean(),
+#                 geometry=point.buffer(10000),
+#                 scale=1000
+#             ).get("SO2_column_number_density").getInfo()
+
+#             save_to_csv(state, folder="so2", column_name="mean_so2", mean_val=mean_val)
+
+#         except Exception as e:
+#             print(f"❌ Error for {state}: {e}")
+
+
+# # Fetch CO from Sentinel-5P
+# def fetch_co():
+#     for state, (lat, lon) in STATES.items():
+#         try:
+#             point = ee.Geometry.Point(lon, lat)
+#             collection = ee.ImageCollection("COPERNICUS/S5P/OFFL/L3_CO") \
+#                 .select("CO_column_number_density") \
+#                 .filterDate(START_DATE, END_DATE) \
+#                 .filterBounds(point)
+
+#             mean_val = collection.mean().reduceRegion(
+#                 reducer=ee.Reducer.mean(),
+#                 geometry=point.buffer(10000),
+#                 scale=1000
+#             ).get("CO_column_number_density").getInfo()
+
+#             save_to_csv(state, folder="co", column_name="mean_co", mean_val=mean_val)
+
+#         except Exception as e:
+#             print(f"❌ Error for {state}: {e}")
