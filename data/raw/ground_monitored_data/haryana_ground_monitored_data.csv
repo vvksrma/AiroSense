@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Haryana,28.5,56.5,2025-06-30T17:55:50Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Haryana,30.9,33.6,2025-07-04T10:47:54Z,500,34

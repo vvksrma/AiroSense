@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Uttar Pradesh,16.6,16.6,2025-06-30T17:56:05Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Uttar Pradesh,20.3,20.4,2025-07-04T10:48:13Z,34,20

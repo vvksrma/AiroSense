@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Himachal Pradesh,6.1,6.2,2025-06-30T17:55:50Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Himachal Pradesh,9.3,9.6,2025-07-04T10:47:55Z,16,10

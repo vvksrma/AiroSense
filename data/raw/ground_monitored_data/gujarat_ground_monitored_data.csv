@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Gujarat,11.6,26.3,2025-06-30T17:55:49Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Gujarat,23.0,53.2,2025-07-04T10:47:53Z,38,53

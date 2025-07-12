@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Andhra Pradesh,3.4,5.8,2025-06-30T17:55:44Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Andhra Pradesh,12.4,18.4,2025-07-04T10:47:45Z,21,18

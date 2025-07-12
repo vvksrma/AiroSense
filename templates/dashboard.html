@@ -1,0 +1,1088 @@
+{% extends "base.html" %}
+
+{% block title %}AiroSense Dashboard{% endblock %}
+
+{% block head %}
+<!-- Additional page-specific CSS or meta tags can go here if needed -->
+ <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .glass-bg {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative max-w-7xl mx-auto px-6 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+      Real-Time Air Quality
+      <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Monitoring</span>
+    </h1>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+      Monitor air quality in real-time across India with our comprehensive pollution tracking system.
+    </p>
+  </div>
+
+<!-- Advice Modal -->
+<div id="adviceModal" class="fixed inset-0 items-center justify-center bg-black bg-opacity-40 z-50 hidden">
+  <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative animate-fade-in">
+    <button id="closeAdviceModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl leading-none">&times;</button>
+    <h2 class="text-2xl font-bold mb-2 text-blue-700">How to Clean the Air & Stay Safe</h2>
+    <ul class="list-disc pl-5 mb-3 text-gray-700">
+      <li>Keep windows and doors closed on high pollution days.</li>
+      <li>Use indoor air purifiers with HEPA filters.</li>
+      <li>Grow indoor plants like spider plant, aloe vera, or snake plant.</li>
+      <li>Vacuum and wet mop floors regularly to reduce dust.</li>
+      <li>Avoid smoking indoors and limit use of incense/candles.</li>
+      <li>Ventilate kitchen and bathrooms to reduce indoor pollutants.</li>
+    </ul>
+    <h3 class="text-lg font-semibold mt-4 mb-2 text-purple-700">Precautions for Health</h3>
+    <ul class="list-disc pl-5 text-gray-700">
+      <li>Wear a certified N95/N99 mask outdoors during poor air quality.</li>
+      <li>Limit outdoor activities—especially for children, elderly, and those with health issues.</li>
+      <li>Stay hydrated; drink plenty of water to help flush out toxins.</li>
+      <li>Monitor local AQI regularly and follow government advisories.</li>
+      <li>If you have asthma or respiratory issues, keep medication handy.</li>
+    </ul>
+  </div>
+</div>
+
+  <!-- Key Metrics -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="glass-effect rounded-2xl p-6 text-center card-hover">
+      <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-1">234</h3>
+      <p class="text-sm text-gray-600">Monitoring Stations</p>
+    </div>
+    <div class="glass-effect rounded-2xl p-6 text-center card-hover">
+      <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-1">Real-Time</h3>
+      <p class="text-sm text-gray-600">Data Updates</p>
+    </div>
+    <div class="glass-effect rounded-2xl p-6 text-center card-hover">
+      <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-1">85%</h3>
+      <p class="text-sm text-gray-600">Accuracy Rate</p>
+    </div>
+    <div class="glass-effect rounded-2xl p-6 text-center card-hover">
+      <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-1">45</h3>
+      <p class="text-sm text-gray-600">Active Alerts</p>
+    </div>
+  </div>
+
+  <!-- Current Status -->
+  <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-black mb-8 text-center">Air Quality Monitor</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cardContainer">
+            <!-- Cards will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data for different cities
+        const airQualityData = [
+            {
+                city: "New York",
+                aqi: 54,
+                category: "Moderate",
+                pm25: 10.7,
+                temperature: 27,
+                windSpeed: 21.3,
+                humidity: 88,
+                gradient: "from-yellow-400 to-orange-400"
+            },
+            {
+                city: "Los Angeles",
+                aqi: 89,
+                category: "Moderate",
+                pm25: 18.2,
+                temperature: 24,
+                windSpeed: 15.8,
+                humidity: 65,
+                gradient: "from-yellow-400 to-orange-500"
+            },
+            {
+                city: "Chicago",
+                aqi: 42,
+                category: "Good",
+                pm25: 8.5,
+                temperature: 22,
+                windSpeed: 19.2,
+                humidity: 72,
+                gradient: "from-green-400 to-green-500"
+            },
+            {
+                city: "Houston",
+                aqi: 78,
+                category: "Moderate",
+                pm25: 15.3,
+                temperature: 29,
+                windSpeed: 12.7,
+                humidity: 81,
+                gradient: "from-yellow-400 to-orange-400"
+            },
+            {
+                city: "Phoenix",
+                aqi: 125,
+                category: "Unhealthy",
+                pm25: 28.4,
+                temperature: 35,
+                windSpeed: 8.9,
+                humidity: 35,
+                gradient: "from-orange-500 to-red-500"
+            },
+            {
+                city: "Philadelphia",
+                aqi: 38,
+                category: "Good",
+                pm25: 7.2,
+                temperature: 25,
+                windSpeed: 16.4,
+                humidity: 68,
+                gradient: "from-green-400 to-green-500"
+            }
+        ];
+
+        function getAQIIcon(aqi) {
+            if (aqi <= 50) {
+                return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="14" fill="#10B981" opacity="0.2"/>
+                    <path d="M24 15c-1.5 2.5-4.5 6-8 6-4.5 0-6.5-2.5-6.5-6 0-4.5 6-9 6-9S24 10.5 24 15z" fill="#10B981"/>
+                    <path d="M16 6v15" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>`;
+            } else if (aqi <= 100) {
+                return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="14" fill="#F59E0B" opacity="0.2"/>
+                    <circle cx="16" cy="16" r="6" fill="#F59E0B"/>
+                    <path d="M16 4v4M28 16h-4M16 28v-4M4 16h4" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+                </svg>`;
+            } else {
+                return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="14" fill="#EF4444" opacity="0.2"/>
+                    <path d="M8 18c3-3 10-3 12 0M10 22c2-2 8-2 10 0" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="12" cy="14" r="1.5" fill="#EF4444"/>
+                    <circle cx="20" cy="14" r="1.5" fill="#EF4444"/>
+                </svg>`;
+            }
+        }
+
+        function createCard(data) {
+            return `
+                <div class="bg-gradient-to-br ${data.gradient} rounded-2xl p-6 card-hover shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-2xl font-bold text-white">${data.aqi}*</div>
+                            <div class="text-sm text-white opacity-80 font-medium">US AQI</div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-lg font-semibold text-white">${data.category}</span>
+                            ${getAQIIcon(data.aqi)}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold text-white mb-1">${data.city}</h3>
+                        <div class="flex items-center space-x-2 text-white opacity-90">
+                            <span class="text-sm font-medium">Main pollutant:</span>
+                            <span class="font-semibold">PM2.5</span>
+                            <span class="text-sm">${data.pm25} μg/m³</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-bg rounded-xl p-4">
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="flex flex-col items-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mb-2">
+                                    <circle cx="12" cy="12" r="5" fill="white" opacity="0.8"/>
+                                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 6.34l1.41-1.41M19.07 19.07l-1.41-1.41" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-white">${data.temperature}°</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mb-2">
+                                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" fill="white" opacity="0.8"/>
+                                    <path d="M13 11l-4 6h4l-4 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-white">${data.windSpeed} km/h</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mb-2">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" fill="white" opacity="0.8"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-white">${data.humidity}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCards() {
+            const container = document.getElementById('cardContainer');
+            container.innerHTML = airQualityData.map(data => createCard(data)).join('');
+        }
+
+        // Animate cards on load
+        function animateCards() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // Initialize
+        renderCards();
+        animateCards();
+
+        // Update data every 30 seconds (simulate real-time updates)
+        setInterval(() => {
+            airQualityData.forEach(data => {
+                data.aqi = Math.max(20, Math.min(200, data.aqi + Math.floor(Math.random() * 10 - 5)));
+                data.temperature = Math.max(15, Math.min(40, data.temperature + Math.floor(Math.random() * 4 - 2)));
+                data.windSpeed = Math.max(5, Math.min(30, data.windSpeed + Math.floor(Math.random() * 6 - 3)));
+                data.humidity = Math.max(30, Math.min(95, data.humidity + Math.floor(Math.random() * 10 - 5)));
+                
+                // Update category based on AQI
+                if (data.aqi <= 50) {
+                    data.category = "Good";
+                    data.gradient = "from-green-400 to-green-500";
+                } else if (data.aqi <= 100) {
+                    data.category = "Moderate";
+                    data.gradient = "from-yellow-400 to-orange-400";
+                } else {
+                    data.category = "Unhealthy";
+                    data.gradient = "from-orange-500 to-red-500";
+                }
+            });
+            renderCards();
+        }, 30000);
+    </script>
+</section>
+
+<!-- Heatmap Section with Pollutant Dropdown -->
+<section class="max-w-7xl mx-auto px-6 mb-8">
+  <div class="glass-effect rounded-2xl p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900">Live Air Quality Heatmap</h2>
+        <p class="text-sm text-gray-600 mt-1" id="pollutant-desc">PM2.5 concentration across India</p>
+      </div>
+      <div class="flex items-center space-x-2">
+        <select id="pollutantSelect" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+          <option value="pm25" selected>PM2.5</option>
+          <option value="pm10">PM10</option>
+          <option value="no2">NO₂</option>
+          <option value="co">CO</option>
+          <option value="so2">SO₂</option>
+          <option value="o3">O₃</option>
+        </select>
+        <div class="loading-spinner" id="mapLoader" style="display: none;"></div>
+        <button id="refreshMap" class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition-colors duration-200">
+          Refresh Data
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row lg:space-x-6">
+      <div class="lg:w-3/4 w-full">
+        <div id="map" class="animate-fade-in"></div>
+      </div>
+      <aside class="lg:w-1/4 w-full mt-6 lg:mt-0 space-y-4">
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-gray-100">
+          <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span id="about-pollutant-title">About PM2.5</span>
+          </h3>
+          <p class="text-gray-600 text-sm" id="about-pollutant-desc">Fine particles ≤2.5 micrometers that can penetrate deep into lungs and enter the bloodstream.</p>
+        </div>
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-gray-100">
+          <h3 class="font-semibold text-gray-900 mb-3">AQI Scale</h3>
+          <div class="space-y-2">
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-green-500 rounded-full mr-3"></div>
+              <span class="text-sm">Good (0-50)</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-yellow-500 rounded-full mr-3"></div>
+              <span class="text-sm">Moderate (51-100)</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-orange-500 rounded-full mr-3"></div>
+              <span class="text-sm">Unhealthy (101-150)</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-red-500 rounded-full mr-3"></div>
+              <span class="text-sm">Hazardous (151+)</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-gray-100">
+          <h3 class="font-semibold text-gray-900 mb-3">Today's Summary</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-sm text-gray-600">Avg AQI</span>
+              <span class="text-sm font-medium" id="avgAQI">87</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm text-gray-600">Stations Active</span>
+              <span class="text-sm font-medium" id="stationsActive">234</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm text-gray-600">Last Update</span>
+              <span class="text-sm font-medium" id="lastUpdate">--:--</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+// Mock: Replace with your AJAX/fetch for 'data/processed/combined_pollution_data.csv'
+const csvUrl = "data/processed/combined_pollution_data.csv";
+
+// Utility: parse CSV row to float or null
+function safeFloat(v) { return (v === "" || v == null) ? null : parseFloat(v); }
+
+function parseCsv(csvText) {
+  const lines = csvText.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  return lines.slice(1).map(row => {
+    const cols = row.split(',');
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = cols[i]);
+    obj.latitude = safeFloat(obj.latitude);
+    obj.longitude = safeFloat(obj.longitude);
+    obj.pm2_5_aqi = safeFloat(obj.pm2_5_aqi);
+    obj.pm10_aqi = safeFloat(obj.pm10_aqi);
+    obj.mean_no2_aqi = safeFloat(obj.mean_no2_aqi);
+    obj.mean_co_aqi = safeFloat(obj.mean_co_aqi);
+    obj.mean_so2_aqi = safeFloat(obj.mean_so2_aqi);
+    obj.mean_o3_aqi = safeFloat(obj.mean_o3_aqi);
+    return obj;
+  });
+}
+
+const map = L.map("map").setView([22.5, 78.9], 5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// --- UI: Pollutant dropdown ---
+const pollutants = [
+  { key: "pm2_5", label: "PM2.5 AQI" },
+  { key: "pm10", label: "PM10 AQI" },
+  { key: "mean_no2", label: "NO₂ AQI" },
+  { key: "mean_co", label: "CO AQI" },
+  { key: "mean_so", label: "SO₂ AQI" },
+  { key: "mean_o3", label: "O₃ AQI" }
+];
+const controlsDiv = document.createElement("div");
+controlsDiv.style.position = "absolute";
+controlsDiv.style.top = "10px";
+controlsDiv.style.left = "50%";
+controlsDiv.style.transform = "translateX(-50%)";
+controlsDiv.style.zIndex = 999;
+controlsDiv.innerHTML = `
+  <select id="pollutantDropdown" class="border rounded px-2 py-1 bg-white shadow font-semibold">
+    ${pollutants.map(p => `<option value="${p.key}">${p.label}</option>`).join("")}
+  </select>
+`;
+document.getElementById("map").appendChild(controlsDiv);
+
+let heatLayer = null;
+let animFrame = null;
+let currentPoints = [];
+let animT = 0;
+
+// Color scale for AQI bands
+function getAqiColor(aqi) {
+  if (aqi == null || isNaN(aqi)) return "#d1d5db";
+  if (aqi <= 50) return "#22c55e";      // Green
+  if (aqi <= 100) return "#facc15";     // Yellow
+  if (aqi <= 200) return "#fb923c";     // Orange
+  if (aqi <= 300) return "#ef4444";     // Red
+  if (aqi <= 400) return "#a21caf";     // Purple
+  return "#7e0023";                     // Maroon
+}
+
+function createHeatmap(points, pollutantKey) {
+  if (heatLayer) map.removeLayer(heatLayer);
+  // Only use points with valid AQI
+  const pts = points.filter(p => p.latitude && p.longitude && !isNaN(p[pollutantKey]));
+  if (!pts.length) return;
+  currentPoints = pts;
+  heatLayer = L.heatLayer(pts.map(d => [
+    d.latitude,
+    d.longitude,
+    Math.max(Math.min(d[pollutantKey] / 500, 1), 0.08)
+  ]), {
+    radius: 34,
+    blur: 44,
+    maxZoom: 8,
+    minOpacity: 0.5,
+    gradient: {
+      0.1: "#22c55e",
+      0.3: "#facc15",
+      0.6: "#fb923c",
+      0.8: "#ef4444",
+      1.0: "#7e0023"
+    }
+  }).addTo(map);
+
+  // Add animated marker overlay
+  pts.forEach(p => {
+    const marker = L.circleMarker([p.latitude, p.longitude], {
+      radius: 12,
+      fillColor: getAqiColor(p[pollutantKey]),
+      color: "#fff",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.6
+    }).addTo(map);
+    marker.bindPopup(
+      `<b>${p.state}</b><br>${pollutants.find(x => x.key === pollutantKey).label}: ${p[pollutantKey] ?? "--"}`
+    );
+    p.__marker = marker;
+  });
+
+  // Animate heat intensity
+  function animate() {
+    animT += 0.04;
+    let animated = pts.map((d, i) => {
+      // Each city pulses with a phase offset
+      let pulse = 0.92 + 0.08 * Math.sin(animT + i * 0.8);
+      return [
+        d.latitude,
+        d.longitude,
+        Math.max(Math.min(d[pollutantKey] / 500 * pulse, 1), 0.08)
+      ];
+    });
+    heatLayer.setLatLngs(animated);
+    animFrame = requestAnimationFrame(animate);
+  }
+  if (animFrame) cancelAnimationFrame(animFrame);
+  animFrame = requestAnimationFrame(animate);
+}
+
+fetch(csvUrl)
+  .then(r => r.text())
+  .then(txt => {
+    const points = parseCsv(txt);
+    let selected = document.getElementById("pollutantDropdown").value;
+    createHeatmap(points, selected);
+    document.getElementById("pollutantDropdown").addEventListener("change", e => {
+      // Remove all circle markers before new ones
+      points.forEach(p => {
+        if (p.__marker) {
+          map.removeLayer(p.__marker);
+          delete p.__marker;
+        }
+      });
+      createHeatmap(points, e.target.value);
+    });
+  });
+</script>
+<!-- Knowledge Section: Air Pollutants Educational Cards -->
+<section class="max-w-7xl mx-auto px-6 py-12" id="knowledge-section">
+  <h2 class="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    Know Your Air Pollutants
+  </h2>
+  <p class="text-center text-lg text-gray-600 mb-10">
+    Understanding what’s in your air is the first step to protecting your health. Hover or tap each card to learn more!
+  </p>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- PM2.5 Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-lg glass-effect card-hover animate-fade-in group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -top-10 -right-10 opacity-20 group-hover:animate-bounce">
+        <!-- Illustration: Dust cloud -->
+        <svg width="100" height="100" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" fill="#a3e635"/><circle cx="40" cy="36" r="14" fill="#d9f99d"/><circle cx="26" cy="28" r="10" fill="#fcd34d"/></svg>
+      </div>
+      <h3 class="font-bold text-xl text-green-700 mb-2 flex items-center">
+        PM2.5
+        <span class="ml-2 inline-block animate-pulse bg-green-200 text-green-800 text-xs rounded-full px-2 py-0.5">Tiny &amp; Dangerous</span>
+      </h3>
+      <p class="text-gray-700 mb-2">
+        <strong>Particulate Matter &lt;2.5μm:</strong> These fine particles penetrate deep into the lungs and can reach your bloodstream. They often come from vehicle exhaust, wildfires, and industrial emissions.
+      </p>
+      <ul class="text-sm text-green-800 mb-2">
+        <li>🫁 Linked to heart &amp; lung disease</li>
+        <li>🏠 Use HEPA filters at home</li>
+      </ul>
+      <div class="text-xs text-gray-500 italic animate-fade-in">You can’t see them, but they can hurt you!</div>
+    </div>
+
+    <!-- PM10 Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-lg glass-effect card-hover animate-fade-in group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -bottom-8 -left-6 opacity-20 group-hover:animate-bounce">
+        <!-- Illustration: Larger dust -->
+        <svg width="90" height="90" viewBox="0 0 64 64"><circle cx="24" cy="40" r="20" fill="#fbbf24"/><circle cx="36" cy="30" r="10" fill="#fde68a"/></svg>
+      </div>
+      <h3 class="font-bold text-xl text-yellow-700 mb-2 flex items-center">
+        PM10
+        <span class="ml-2 inline-block animate-bounce bg-yellow-100 text-yellow-800 text-xs rounded-full px-2 py-0.5">Bigger Particles</span>
+      </h3>
+      <p class="text-gray-700 mb-2">
+        <strong>Particulate Matter &lt;10μm:</strong> These particles include dust, pollen, and mold. They can irritate your nose and throat, and worsen allergies and asthma.
+      </p>
+      <ul class="text-sm text-yellow-800 mb-2">
+        <li>🤧 Causes sneezing &amp; coughing</li>
+        <li>🌬️ Keep windows closed on dusty days</li>
+      </ul>
+      <div class="text-xs text-gray-500 italic animate-fade-in">If you see haze, you’re seeing PM10!</div>
+    </div>
+
+    <!-- Nitrogen Dioxide (NO₂) Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-lg glass-effect card-hover animate-fade-in group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -top-6 -left-4 opacity-20 group-hover:animate-spin">
+        <!-- Illustration: Car exhaust -->
+        <svg width="90" height="90" viewBox="0 0 64 64"><ellipse cx="40" cy="40" rx="16" ry="8" fill="#60a5fa"/><rect x="18" y="36" width="16" height="8" rx="2" fill="#3b82f6"/></svg>
+      </div>
+      <h3 class="font-bold text-xl text-blue-700 mb-2 flex items-center">
+        NO<sub>2</sub>
+        <span class="ml-2 inline-block animate-pulse bg-blue-100 text-blue-800 text-xs rounded-full px-2 py-0.5">City Gas</span>
+      </h3>
+      <p class="text-gray-700 mb-2">
+        <strong>Nitrogen Dioxide:</strong> A reddish-brown gas mostly from cars, trucks, and power plants. It makes asthma and other respiratory problems worse.
+      </p>
+      <ul class="text-sm text-blue-800 mb-2">
+        <li>🚗 Avoid busy roads during rush hour</li>
+        <li>😮‍💨 Use masks on high NO₂ days</li>
+      </ul>
+      <div class="text-xs text-gray-500 italic animate-fade-in">Can make the air look brownish in cities!</div>
+    </div>
+    
+    <!-- Carbon Monoxide (CO) Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-lg glass-effect card-hover animate-fade-in group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -bottom-10 -right-10 opacity-20 group-hover:animate-spin">
+        <!-- Illustration: CO warning sign -->
+        <svg width="100" height="100" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#f87171"/><text x="20" y="40" font-size="20" fill="#fff" font-family="Arial">CO</text></svg>
+      </div>
+      <h3 class="font-bold text-xl text-red-600 mb-2 flex items-center">
+        CO
+        <span class="ml-2 inline-block animate-pulse bg-red-100 text-red-700 text-xs rounded-full px-2 py-0.5">Silent Killer</span>
+      </h3>
+      <p class="text-gray-700 mb-2">
+        <strong>Carbon Monoxide:</strong> An odorless, colorless gas from burning fuels. High levels can cause headaches, dizziness, or even death.
+      </p>
+      <ul class="text-sm text-red-700 mb-2">
+        <li>🔥 Never burn charcoal indoors</li>
+        <li>🚗 Don’t idle your car in a closed garage</li>
+      </ul>
+      <div class="text-xs text-gray-500 italic animate-fade-in">Install CO detectors at home!</div>
+    </div>
+    
+    <!-- Sulfur Dioxide (SO₂) Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-lg glass-effect card-hover animate-fade-in group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -top-8 -right-8 opacity-20 group-hover:animate-bounce">
+        <!-- Illustration: Factory stack -->
+        <svg width="80" height="80" viewBox="0 0 64 64"><rect x="30" y="30" width="12" height="24" fill="#fca5a5"/><ellipse cx="36" cy="28" rx="14" ry="7" fill="#fef3c7"/></svg>
+      </div>
+      <h3 class="font-bold text-xl text-pink-700 mb-2 flex items-center">
+        SO<sub>2</sub>
+        <span class="ml-2 inline-block animate-pulse bg-pink-100 text-pink-700 text-xs rounded-full px-2 py-0.5">Acid Rain Maker</span>
+      </h3>
+      <p class="text-gray-700 mb-2">
+        <strong>Sulfur Dioxide:</strong> Produced by burning coal and oil at power plants or from volcanoes. Causes acid rain and can make breathing hard.
+      </p>
+      <ul class="text-sm text-pink-700 mb-2">
+        <li>⛽ Avoid outdoor activity near factories</li>
+        <li>☔ Damages crops and buildings</li>
+      </ul>
+      <div class="text-xs text-gray-500 italic animate-fade-in">Wears down ancient monuments!</div>
+    </div>
+
+    <!-- Ozone (O₃) Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-lg glass-effect card-hover animate-fade-in group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -bottom-10 -left-10 opacity-20 group-hover:animate-spin">
+        <!-- Illustration: Ozone molecule -->
+        <svg width="100" height="100" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="20" fill="#a7f3d0"/>
+          <circle cx="22" cy="36" r="7" fill="#34d399"/>
+          <circle cx="42" cy="36" r="7" fill="#34d399"/>
+          <circle cx="32" cy="24" r="7" fill="#34d399"/>
+        </svg>
+      </div>
+      <h3 class="font-bold text-xl text-teal-700 mb-2 flex items-center">
+        O<sub>3</sub>
+        <span class="ml-2 inline-block animate-pulse bg-teal-100 text-teal-800 text-xs rounded-full px-2 py-0.5">Ground Ozone</span>
+      </h3>
+      <p class="text-gray-700 mb-2">
+        <strong>Ozone:</strong> Good in the upper atmosphere, bad at ground level! Created by sunlight reacting with pollution. Causes chest pain and coughing.
+      </p>
+      <ul class="text-sm text-teal-800 mb-2">
+        <li>🌞 Avoid heavy exercise outdoors on hot, sunny days</li>
+        <li>🚭 Don’t smoke: it adds to ozone pollution</li>
+      </ul>
+      <div class="text-xs text-gray-500 italic animate-fade-in">Sniffly in summer? Ozone might be why!</div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Global variables
+  let heatmapLayer, markers = [];
+  let currentData = [];
+
+  // CSV file path
+  const CSV_FILE_PATH = 'data/processed/combined_pollution_data.csv';
+
+  // Initialize the application
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeMap();
+    loadAirQualityData();
+    setupEventListeners();
+    showNotification();
+    updateLastUpdateTime();
+    setupMapZoomRadius();
+  });
+
+  // Initialize map
+  function initializeMap() {
+    map = L.map("map", { zoomControl: true }).setView([22.9734, 78.6569], 5);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+      minZoom: 4,
+    }).addTo(map);
+
+    // Add custom controls
+    L.control.scale({ position: 'bottomleft' }).addTo(map);
+  }
+
+  // Load air quality data from CSV
+  function loadAirQualityData() {
+    showLoader();
+
+    Papa.parse(CSV_FILE_PATH, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      dynamicTyping: true,
+      complete: function(results) {
+        try {
+          const processedData = processCSVData(results.data);
+          currentData = processedData;
+          updateHeatmap(processedData);
+          updateCityCards(processedData);
+          hideLoader();
+        } catch (err) {
+          hideLoader();
+          showNotification("Failed to process pollution data.", "error");
+          console.error(err);
+        }
+      },
+      error: function(error) {
+        hideLoader();
+        showNotification("Failed to load pollution data: " + error, "error");
+      }
+    });
+  }
+
+  // Process CSV data to fit needed structure
+  function processCSVData(data) {
+    // CSV columns: state,latitude,longitude,pm2_5,pm10,ground_timestamp,mean_no2,mean_co,mean_so2,mean_o3,satellite_window
+    return data
+      .filter(row =>
+        row.state && !isNaN(row.latitude) && !isNaN(row.longitude) && !isNaN(row.pm2_5)
+      )
+      .map(row => ({
+        name: row.state, // If you have city, use that. Here, state is used as location name.
+        state: row.state,
+        lat: parseFloat(row.latitude),
+        lon: parseFloat(row.longitude),
+        pm25: parseFloat(row.pm2_5),
+        pm10: parseFloat(row.pm10),
+        no2: parseFloat(row.mean_no2),
+        co: parseFloat(row.mean_co),
+        so2: parseFloat(row.mean_so2),
+        o3: parseFloat(row.mean_o3),
+        timestamp: row.ground_timestamp || new Date().toISOString()
+      }));
+  }
+
+  // Update heatmap
+  function updateHeatmap(data) {
+    // Clear existing markers
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+
+    // Remove existing heatmap
+    if (heatmapLayer) {
+      map.removeLayer(heatmapLayer);
+    }
+
+    // Prepare heatmap data
+    const heatData = data.map(city => [
+      city.lat, 
+      city.lon, 
+      Math.min((city.pm25 || 0) / 200, 1)
+    ]);
+
+    // Create heatmap layer
+    heatmapLayer = L.heatLayer(heatData, {
+      radius: 25,
+      blur: 25,
+      maxZoom: 8,
+      gradient: {
+        0.0: "#00ff00",
+        0.3: "#ffff00", 
+        0.6: "#ff8800",
+        1.0: "#ff0000"
+      }
+    }).addTo(map);
+
+    // Add interactive markers
+    data.forEach(city => {
+      const aqi = calculateAQI(city.pm25);
+      const category = getAQICategory(aqi);
+      const color = getAQIColor(aqi);
+
+      const marker = L.circleMarker([city.lat, city.lon], {
+        radius: 12,
+        fillColor: color,
+        color: '#fff',
+        weight: 2,
+        opacity: 0.8,
+        fillOpacity: 0.6
+      }).addTo(map);
+
+      // Enhanced popup content with all pollutants
+      const popupContent = `
+        <div class="p-3 min-w-[220px]">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-semibold text-lg text-gray-800">${city.name}</h3>
+            <span class="px-2 py-1 rounded text-xs font-medium text-white" style="background-color: ${color}">
+              ${category}
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">${city.state}</p>
+          
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">AQI</div>
+              <div class="text-lg font-bold" style="color: ${color}">${aqi}</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">PM2.5</div>
+              <div class="text-lg font-bold text-gray-800">${city.pm25 ?? "--"}</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">PM10</div>
+              <div class="text-lg font-bold text-gray-800">${city.pm10 ?? "--"}</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">NO₂</div>
+              <div class="text-lg font-bold text-gray-800">${city.no2 ?? "--"}</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">CO</div>
+              <div class="text-lg font-bold text-gray-800">${city.co ?? "--"}</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">SO₂</div>
+              <div class="text-lg font-bold text-gray-800">${city.so2 ?? "--"}</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="font-medium text-gray-700">O₃</div>
+              <div class="text-lg font-bold text-gray-800">${city.o3 ?? "--"}</div>
+            </div>
+          </div>
+          
+          <div class="mt-3 pt-2 border-t border-gray-200">
+            <div class="text-xs text-gray-500">
+              Updated: ${city.timestamp ? new Date(city.timestamp).toLocaleTimeString() : "--"}
+            </div>
+          </div>
+        </div>
+      `;
+
+      marker.bindPopup(popupContent, {
+        maxWidth: 280,
+        className: 'custom-popup'
+      });
+
+      markers.push(marker);
+    });
+  }
+  // Advice modal
+  // Advice Modal Logic
+document.addEventListener('DOMContentLoaded', function() {
+  // Open modal
+  document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('view-details-btn')) {
+      document.getElementById('adviceModal').classList.remove('hidden');
+    }
+  });
+  // Close modal
+  document.getElementById('closeAdviceModal').addEventListener('click', function() {
+    document.getElementById('adviceModal').classList.add('hidden');
+  });
+  // Optional: Close on background click
+  document.getElementById('adviceModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.add('hidden');
+    }
+  });
+});
+  // Update city cards
+  function updateCityCards(data) {
+    const container = document.getElementById('cityCards');
+    if (!container) return;
+    container.innerHTML = '';
+
+    data.forEach(city => {
+      const aqi = calculateAQI(city.pm25);
+      const category = getAQICategory(aqi);
+      const color = getAQIColor(aqi);
+
+      const card = document.createElement('div');
+      card.className = `bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 card-hover animate-fade-in`;
+      card.style.borderLeftColor = color;
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-semibold text-lg text-gray-800">${city.name}</h3>
+            <p class="text-sm text-gray-600">${city.state}</p>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold" style="color: ${color}">${aqi}</div>
+            <div class="text-xs text-gray-500">AQI</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between mb-4">
+          <span class="px-3 py-1 rounded-full text-sm font-medium text-white" style="background-color: ${color}">
+            ${category}
+          </span>
+          <div class="flex items-center text-xs text-gray-500">
+            <div class="w-2 h-2 rounded-full mr-1 animate-pulse" style="background-color: ${color}"></div>
+            Live
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mb-4">
+          <div class="text-center">
+            <div class="text-sm font-semibold text-gray-800">${city.pm25 ?? "--"}</div>
+            <div class="text-xs text-gray-500">PM2.5</div>
+          </div>
+          <div class="text-center">
+            <div class="text-sm font-semibold text-gray-800">${city.pm10 ?? "--"}</div>
+            <div class="text-xs text-gray-500">PM10</div>
+          </div>
+          <div class="text-center">
+            <div class="text-sm font-semibold text-gray-800">${city.no2 ?? "--"}</div>
+            <div class="text-xs text-gray-500">NO₂</div>
+          </div>
+          <div class="text-center">
+            <div class="text-sm font-semibold text-gray-800">${city.co ?? "--"}</div>
+            <div class="text-xs text-gray-500">CO</div>
+          </div>
+          <div class="text-center">
+            <div class="text-sm font-semibold text-gray-800">${city.so2 ?? "--"}</div>
+            <div class="text-xs text-gray-500">SO₂</div>
+          </div>
+          <div class="text-center">
+            <div class="text-sm font-semibold text-gray-800">${city.o3 ?? "--"}</div>
+            <div class="text-xs text-gray-500">O₃</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">
+            Updated: ${city.timestamp ? new Date(city.timestamp).toLocaleTimeString() : "--"}
+          </div>
+          <button class="view-details-btn text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors duration-200">
+            View Details
+          </button>
+        </div>
+        <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div class="h-full rounded-full transition-all duration-1000" 
+               style="width: ${Math.min((aqi / 300) * 100, 100)}%; background-color: ${color}"></div>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  // Calculate AQI from PM2.5
+  function calculateAQI(pm25) {
+    if (pm25 == null || isNaN(pm25)) return "--";
+    if (pm25 <= 12) return Math.round((50 / 12) * pm25);
+    if (pm25 <= 35.4) return Math.round(((100 - 51) / (35.4 - 12.1)) * (pm25 - 12.1) + 51);
+    if (pm25 <= 55.4) return Math.round(((150 - 101) / (55.4 - 35.5)) * (pm25 - 35.5) + 101);
+    if (pm25 <= 150.4) return Math.round(((200 - 151) / (150.4 - 55.5)) * (pm25 - 55.5) + 151);
+    if (pm25 <= 250.4) return Math.round(((300 - 201) / (250.4 - 150.5)) * (pm25 - 150.5) + 201);
+    return Math.round(((400 - 301) / (350.4 - 250.5)) * (pm25 - 250.5) + 301);
+  }
+
+  // Get AQI category
+  function getAQICategory(aqi) {
+    if (aqi === "--") return "--";
+    if (aqi <= 50) return 'Good';
+    if (aqi <= 100) return 'Moderate';
+    if (aqi <= 150) return 'Unhealthy for Sensitive Groups';
+    if (aqi <= 200) return 'Unhealthy';
+    if (aqi <= 300) return 'Very Unhealthy';
+    return 'Hazardous';
+  }
+
+  // Get AQI color
+  function getAQIColor(aqi) {
+    if (aqi === "--") return '#d1d5db';
+    if (aqi <= 50) return '#10b981';
+    if (aqi <= 100) return '#f59e0b';
+    if (aqi <= 150) return '#f97316';
+    if (aqi <= 200) return '#ef4444';
+    if (aqi <= 300) return '#8b5cf6';
+    return '#7c2d12';
+  }
+
+  // Setup event listeners
+  function setupEventListeners() {
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      filterCities(query);
+    });
+
+    // Refresh map data
+    document.getElementById('refreshMap').addEventListener('click', function() {
+      loadAirQualityData();
+      showNotification('Data refreshed successfully!', 'success');
+    });
+
+    // Auto-refresh every 5 minutes
+    setInterval(loadAirQualityData, 300000);
+  }
+
+  // Filter cities based on search
+  function filterCities(query) {
+    const cards = document.querySelectorAll('#cityCards > div');
+    cards.forEach(card => {
+      const cityName = card.querySelector('h3').textContent.toLowerCase();
+      const state = card.querySelector('p').textContent.toLowerCase();
+
+      if (cityName.includes(query) || state.includes(query)) {
+        card.style.display = 'block';
+        card.classList.add('animate-fade-in');
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Show/hide loader
+  function showLoader() {
+    document.getElementById('mapLoader').style.display = 'block';
+  }
+
+  function hideLoader() {
+    document.getElementById('mapLoader').style.display = 'none';
+  }
+
+  // Show notification
+  function showNotification(message = 'Welcome to AiroSense! Real-time air quality monitoring.', type = 'info') {
+    const notification = document.getElementById('notification');
+    const text = document.getElementById('notification-text');
+
+    text.textContent = message;
+    notification.classList.add('show');
+
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 5000);
+  }
+
+  // Update last update time
+  function updateLastUpdateTime() {
+    const now = new Date();
+    document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
+
+    // Update every minute
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
+    }, 60000);
+  }
+
+  // Enhanced map interactions (wait for map to be initialized)
+  function setupMapZoomRadius() {
+    if (!map) return;
+    map.on('zoomend', function() {
+      if (map.getZoom() > 10) {
+        markers.forEach(marker => marker.setRadius(8));
+      } else {
+        markers.forEach(marker => marker.setRadius(12));
+      }
+    });
+  }
+
+  // Responsive design adjustments
+  window.addEventListener('resize', function() {
+    if (map) {
+      map.invalidateSize();
+    }
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'r') {
+      e.preventDefault();
+      loadAirQualityData();
+    }
+  });
+
+  // Add some sample weather alerts
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      showNotification('Air quality alert: PM2.5 levels are elevated in Delhi NCR region', 'warning');
+    }
+  }, 10000);
+</script>
+{% endblock %}

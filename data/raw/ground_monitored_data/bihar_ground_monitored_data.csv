@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Bihar,18.7,18.9,2025-06-30T17:55:46Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Bihar,22.4,23.0,2025-07-04T10:47:47Z,37,23

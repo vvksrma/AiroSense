@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Dadra and Nagar Haveli and Daman and Diu,7.7,13.4,2025-06-30T17:55:47Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Dadra and Nagar Haveli and Daman and Diu,17.5,46.3,2025-07-04T10:47:50Z,29,46

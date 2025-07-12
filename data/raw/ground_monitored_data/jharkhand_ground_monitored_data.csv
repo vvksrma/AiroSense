@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Jharkhand,49.9,49.9,2025-06-30T17:55:51Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Jharkhand,16.9,17.0,2025-07-04T10:47:57Z,28,17

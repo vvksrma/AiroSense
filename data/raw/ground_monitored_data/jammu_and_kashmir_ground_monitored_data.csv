@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Jammu and Kashmir,5.1,11.9,2025-06-30T17:56:04Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Jammu and Kashmir,25.8,26.3,2025-07-04T10:47:56Z,43,26

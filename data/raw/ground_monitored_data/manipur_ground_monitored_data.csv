@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Manipur,18.2,18.6,2025-06-30T17:55:55Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Manipur,9.3,9.9,2025-07-04T10:48:03Z,16,10

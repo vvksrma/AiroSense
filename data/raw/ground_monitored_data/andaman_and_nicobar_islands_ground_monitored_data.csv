@@ -1,2 +1,2 @@
-state,pm2_5,pm10,ground_timestamp
-Andaman and Nicobar Islands,4.5,8.1,2025-06-30T17:55:43Z
+state,pm2_5,pm10,ground_timestamp,pm2_5_aqi,pm10_aqi
+Andaman and Nicobar Islands,8.1,19.3,2025-07-04T10:47:44Z,14,19

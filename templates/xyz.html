@@ -1,0 +1,323 @@
+<section class="bg-gray-50 min-h-screen" x-data="{ mobileNavOpen: false }">
+  <nav class="py-4 bg-white shadow-sm border-b">
+    <div class="container mx-auto px-4">
+      <div class="relative flex items-center justify-between">
+        <div class="w-auto flex items-center">
+          <a class="inline-block items-center" href="#">
+            <img src="https://static.shuffle.dev/uploads/files/1d/1dad579aee1bf80ab51927b4cb5023220256c598/logos/logo-120f890c43ec1874a4d1584cce59717a.png" alt="AiroSense" class="h-8 mr-3"/>
+            <span class="font-heading text-xl font-semibold text-gray-800">AiroSense</span>
+          </a>
+        </div>
+        <div class="hidden lg:flex items-center space-x-8">
+          <ul class="flex items-center space-x-8">
+            <li class="font-heading"><a class="text-blue-600 font-medium hover:text-blue-700" href="#">Home</a></li>
+            <li class="font-heading"><a class="text-gray-600 hover:text-blue-600" href="#">Air Maps</a></li>
+            <li class="font-heading"><a class="text-gray-600 hover:text-blue-600" href="#">Newsroom</a></li>
+            <li class="font-heading"><a class="text-gray-600 hover:text-blue-600" href="#">Forecast</a></li>
+            <li class="font-heading"><a class="text-gray-600 hover:text-blue-600" href="#">Breathe Safe</a></li>
+          </ul>
+          <div class="relative ml-8">
+            <input class="w-64 px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" type="text" placeholder="Search locations..."/>
+          </div>
+        </div>
+        <div class="hidden lg:flex items-center space-x-4">
+          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+            <span class="text-white text-sm font-medium">V</span>
+          </div>
+          <button class="p-2 text-gray-400 hover:text-gray-600">
+            <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20">
+              <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="w-auto lg:hidden">
+          <button x-on:click="mobileNavOpen = !mobileNavOpen" class="inline-flex w-10 h-10 justify-center items-center bg-gray-100 hover:bg-gray-200 rounded-lg">
+            <svg width="20" height="10" viewbox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 9H1M19 1H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="font-heading text-3xl font-bold text-gray-800 mb-2">Good Morning, Vivek</h1>
+      <p class="text-gray-600 text-lg">Here's the latest air quality insights across India</p>
+    </div>
+    <div class="mb-8 bg-white rounded-xl shadow-sm p-6">
+      <h2 class="font-heading text-xl font-semibold mb-4 text-gray-800">Your Watchlist</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg border border-green-200">
+          <div>
+            <h3 class="font-medium text-gray-800">Mumbai</h3>
+            <p class="text-sm text-gray-600">Maharashtra</p>
+          </div>
+          <span class="px-3 py-1 bg-green-500 text-white text-sm font-medium rounded-full">Good 45</span>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+          <div>
+            <h3 class="font-medium text-gray-800">Delhi</h3>
+            <p class="text-sm text-gray-600">NCR</p>
+          </div>
+          <span class="px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded-full">Moderate 85</span>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg border border-red-200">
+          <div>
+            <h3 class="font-medium text-gray-800">Kolkata</h3>
+            <p class="text-sm text-gray-600">West Bengal</p>
+          </div>
+          <span class="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded-full">Unhealthy 165</span>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg border border-green-200">
+          <div>
+            <h3 class="font-medium text-gray-800">Bengaluru</h3>
+            <p class="text-sm text-gray-600">Karnataka</p>
+          </div>
+          <span class="px-3 py-1 bg-green-500 text-white text-sm font-medium rounded-full">Good 38</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300" style="transform: translateY(0px);">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img class="w-6 h-4 mr-2" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=24&h=16&fit=crop" alt="India flag"/>
+              <h3 class="font-heading text-lg font-semibold text-gray-800">Mumbai</h3>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center mb-2 mx-auto">
+                <span class="text-xl font-bold text-green-600">45</span>
+              </div>
+              <span class="text-xs text-green-600 font-medium">Good</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM2.5</p>
+              <p class="font-semibold text-gray-800">23 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM10</p>
+              <p class="font-semibold text-gray-800">45 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">NO2</p>
+              <p class="font-semibold text-gray-800">18 ppb</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">O3</p>
+              <p class="font-semibold text-gray-800">65 ppb</p>
+            </div>
+          </div>
+          <div class="h-20 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg flex items-center justify-center">
+            <p class="text-sm text-gray-600">6-hour forecast trend</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300" style="transform: translateY(0px);">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img class="w-6 h-4 mr-2" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=24&h=16&fit=crop" alt="India flag"/>
+              <h3 class="font-heading text-lg font-semibold text-gray-800">Delhi</h3>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full border-4 border-yellow-500 flex items-center justify-center mb-2 mx-auto">
+                <span class="text-xl font-bold text-yellow-600">85</span>
+              </div>
+              <span class="text-xs text-yellow-600 font-medium">Moderate</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM2.5</p>
+              <p class="font-semibold text-gray-800">65 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM10</p>
+              <p class="font-semibold text-gray-800">95 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">NO2</p>
+              <p class="font-semibold text-gray-800">45 ppb</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">O3</p>
+              <p class="font-semibold text-gray-800">88 ppb</p>
+            </div>
+          </div>
+          <div class="h-20 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg flex items-center justify-center">
+            <p class="text-sm text-gray-600">6-hour forecast trend</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300" style="transform: translateY(0px);">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img class="w-6 h-4 mr-2" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=24&h=16&fit=crop" alt="India flag"/>
+              <h3 class="font-heading text-lg font-semibold text-gray-800">Bengaluru</h3>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center mb-2 mx-auto">
+                <span class="text-xl font-bold text-green-600">38</span>
+              </div>
+              <span class="text-xs text-green-600 font-medium">Good</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM2.5</p>
+              <p class="font-semibold text-gray-800">18 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM10</p>
+              <p class="font-semibold text-gray-800">32 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">NO2</p>
+              <p class="font-semibold text-gray-800">12 ppb</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">O3</p>
+              <p class="font-semibold text-gray-800">42 ppb</p>
+            </div>
+          </div>
+          <div class="h-20 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg flex items-center justify-center">
+            <p class="text-sm text-gray-600">6-hour forecast trend</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300" style="transform: translateY(0px);">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img class="w-6 h-4 mr-2" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=24&h=16&fit=crop" alt="India flag"/>
+              <h3 class="font-heading text-lg font-semibold text-gray-800">Chennai</h3>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full border-4 border-yellow-500 flex items-center justify-center mb-2 mx-auto">
+                <span class="text-xl font-bold text-yellow-600">72</span>
+              </div>
+              <span class="text-xs text-yellow-600 font-medium">Moderate</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM2.5</p>
+              <p class="font-semibold text-gray-800">52 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM10</p>
+              <p class="font-semibold text-gray-800">78 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">NO2</p>
+              <p class="font-semibold text-gray-800">28 ppb</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">O3</p>
+              <p class="font-semibold text-gray-800">71 ppb</p>
+            </div>
+          </div>
+          <div class="h-20 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg flex items-center justify-center">
+            <p class="text-sm text-gray-600">6-hour forecast trend</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300" style="transform: translateY(0px);">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img class="w-6 h-4 mr-2" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=24&h=16&fit=crop" alt="India flag"/>
+              <h3 class="font-heading text-lg font-semibold text-gray-800">Kolkata</h3>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full border-4 border-red-500 flex items-center justify-center mb-2 mx-auto">
+                <span class="text-xl font-bold text-red-600">165</span>
+              </div>
+              <span class="text-xs text-red-600 font-medium">Unhealthy</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM2.5</p>
+              <p class="font-semibold text-gray-800">125 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM10</p>
+              <p class="font-semibold text-gray-800">185 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">NO2</p>
+              <p class="font-semibold text-gray-800">68 ppb</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">O3</p>
+              <p class="font-semibold text-gray-800">95 ppb</p>
+            </div>
+          </div>
+          <div class="h-20 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg flex items-center justify-center">
+            <p class="text-sm text-gray-600">6-hour forecast trend</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300" style="transform: translateY(0px);">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img class="w-6 h-4 mr-2" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=24&h=16&fit=crop" alt="India flag"/>
+              <h3 class="font-heading text-lg font-semibold text-gray-800">Hyderabad</h3>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center mb-2 mx-auto">
+                <span class="text-xl font-bold text-green-600">42</span>
+              </div>
+              <span class="text-xs text-green-600 font-medium">Good</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM2.5</p>
+              <p class="font-semibold text-gray-800">28 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">PM10</p>
+              <p class="font-semibold text-gray-800">48 μg/m³</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">NO2</p>
+              <p class="font-semibold text-gray-800">15 ppb</p>
+            </div>
+            <div class="text-center p-3 bg-gray-50 rounded-lg">
+              <p class="text-xs text-gray-500 mb-1">O3</p>
+              <p class="font-semibold text-gray-800">58 ppb</p>
+            </div>
+          </div>
+          <div class="h-20 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg flex items-center justify-center">
+            <p class="text-sm text-gray-600">6-hour forecast trend</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div :class="{'block': mobileNavOpen, 'hidden': !mobileNavOpen}" class="hidden fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50">
+    <div x-on:click="mobileNavOpen = !mobileNavOpen" class="fixed inset-0 backdrop-blur-xl backdrop-filter bg-gray-900 bg-opacity-80"></div>
+    <nav class="relative pt-7 pb-8 bg-white h-full overflow-y-auto">
+      <div class="flex flex-col px-6 h-full">
+        <a class="inline-block ml-4 mb-7" href="#">
+          <img src="https://static.shuffle.dev/uploads/files/1d/1dad579aee1bf80ab51927b4cb5023220256c598/logos/logo-120f890c43ec1874a4d1584cce59717a.png" alt="AiroSense"/>
+        </a>
+        <ul class="w-full mb-auto pb-16">
+          <li><a class="font-heading block text-base font-medium py-4 px-6 hover:bg-blue-50 rounded-sm" href="#">Home</a></li>
+          <li><a class="font-heading block text-base py-4 px-6 hover:bg-blue-50 rounded-sm" href="#">Air Maps</a></li>
+          <li><a class="font-heading block text-base py-4 px-6 hover:bg-blue-50 rounded-sm" href="#">Newsroom</a></li>
+          <li><a class="font-heading block text-base py-4 px-6 hover:bg-blue-50 rounded-sm" href="#">Forecast</a></li>
+          <li><a class="font-heading block text-base py-4 px-6 hover:bg-blue-50 rounded-sm" href="#">Breathe Safe</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
