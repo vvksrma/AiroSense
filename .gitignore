@@ -1,25 +1,42 @@
-# Python cache
+# ========== Python ==========
 __pycache__/
 *.py[cod]
+*$py.class
+instance/
+.webassets-cache
+*.log
+.env
 
-# Virtual environment
+# ========== Flask/Project Artifacts ==========
+*.sqlite3
+*.db
+*.egg-info/
+build/
+dist/
+
+# ========== Node / Tailwind ==========
+node_modules/
+static/css/output.css
+# If building to other dirs:
+public/
+.env.local
+.vite/
+
+# ========== Visual Studio / JetBrains ==========
+.vscode/
+.idea/
+
+# ========== OS Metadata ==========
+.DS_Store
+Thumbs.db
+
+# ========== Python virtual env ==========
 venv/
 Include/
 Lib/
 Scripts/
 pyvenv.cfg
 
-# Environment variables
-.env
-
-# VS Code or PyCharm settings
-.vscode/
-.idea/
-
-# Bytecode and log files
-*.log
-*.sqlite3
-
-# Flask instance folder
-instance/
-.vercel
+# Vercel artifacts
+.vercel/
+.vercelignore
